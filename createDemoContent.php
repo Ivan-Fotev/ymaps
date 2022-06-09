@@ -105,7 +105,9 @@ class CreateDemoContent
                         'USE_GOOGLE' => 'N',
                     ]
                 ]
-            ]
+            ],
+            'WORKFLOW'  => 'N',
+            'BIZPROC'   => 'N'
         ];
 
         $ib = new \CIBlock;
