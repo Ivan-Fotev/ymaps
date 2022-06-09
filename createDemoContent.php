@@ -323,7 +323,7 @@ class CreateDemoContent
         return $id;
     }
 
-    function getSite(): array
+    protected function getSite(): array
     {
         $arSiteId = [];
 
