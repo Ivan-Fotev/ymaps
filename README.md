@@ -27,8 +27,15 @@
 ├── index.php
 └── .section.php
 ```
+
+## Клонирование репозитория
+```
+git init .
+git remote add -t \* -f origin https://github.com/Ivan-Fotev/ymaps.git
+git checkout master
+```
 ## Создание демо контента 
-Открываем "Командная php-строка" в административном интерфейсе сайта и запускем следующий код 
+Открываем "Командная php-строка" в административном интерфейсе сайта и запускем следующий код.
 ```
 require $_SERVER['DOCUMENT_ROOT'].'/createDemoContent.php';
 
