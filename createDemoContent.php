@@ -14,15 +14,30 @@ namespace FIS;
 
 require $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_before.php';
 
-
+/**
+ * Class CreateDemoContent
+ *
+ * Класс реалитзует механизм создания демо контента
+ *  - Тип инфоблока
+ *  - Инфоблок
+ *  - Свойств инфоблока
+ *  - Элементы инфоблока
+ *
+ *  Реализована проверка на сущестование данных, но отслеживание хода установки и информированеии о совершенных шагах
+ *  опущен сознательно.
+ *
+ * @package FIS
+ */
 class CreateDemoContent
 {
-    protected static $typeIblockId = 'fis';
-    protected static $IblockCode = 'fisymaps';
-    protected static $IblockId = 0;
-    protected static $IblockProp = [];
+    protected static $typeIblockId  = 'fis';
+    protected static $IblockCode    = 'fisymaps';
+    protected static $IblockId      = 0;
+    protected static $IblockProp    = [];
 
- 
+    /**
+     * 
+     */
     public static function generete()
     {
         if (\CModule::IncludeModule("iblock")) {
@@ -40,16 +55,27 @@ class CreateDemoContent
         }
     }
 
+    /**
+     * @return string - идентификатор информационного блока
+     */
     protected function getIblockTypeId(): string
     {
         return static::$typeIblockId;
     }
 
+    /**
+     * @return string  - код информационного блока
+     */
     protected function getIblockCode(): string
     {
         return static::$IblockCode;
     }
 
+    /**
+     *  Проверка существования информационного блока в системе
+     *
+     * @return bool
+     */
     protected function issetIblockType(): bool
     {
         $result = false;
@@ -63,6 +89,9 @@ class CreateDemoContent
         return $result;
     }
 
+    /**
+     * Создание типа ифнормационного блока
+     */
     protected function createIblockType(): void
     {
         $arFields = [
@@ -78,9 +107,11 @@ class CreateDemoContent
 
         $ob = new \CIBlockType;
         $ob->Add($arFields);
-
     }
 
+    /**
+     * Создание информационного блока
+     */
     protected function createIblock(): void
     {
         $arFields = [
@@ -114,6 +145,9 @@ class CreateDemoContent
         $ib->Add($arFields);
     }
 
+    /**
+     * Созадние свойств информационного блока
+     */
     protected function сreateIblockProp(): void
     {
 
@@ -160,7 +194,12 @@ class CreateDemoContent
         }
     }
 
-
+    /**
+     * Проверка наличия в информационом блоке свойств с переданным кодом
+     *
+     * @param  string  $code
+     * @return bool
+     */
     protected function issetIblockProp($code = ''): bool
     {
         $result = false;
@@ -175,6 +214,11 @@ class CreateDemoContent
         return $result;
     }
 
+    /**
+     * Получение списка свойств информационного блока
+     *
+     * @return array
+     */
     protected function getIblockProp(): array
     {
         if (is_array(self::$IblockProp) && count(self::$IblockProp) == 0) {
@@ -198,6 +242,11 @@ class CreateDemoContent
         return self::$IblockProp;
     }
 
+    /**
+     *  Проверка сущестования информационного блока в системе
+     *
+     * @return bool
+     */
     protected function issetIblock(): bool
     {
         $result = false;
@@ -209,6 +258,11 @@ class CreateDemoContent
         return $result;
     }
 
+    /**
+     * Получние идентификатора информационного блока
+     *
+     * @return int
+     */
     protected function getIblockId(): int
     {
         if (self::$IblockId == 0) {
@@ -228,6 +282,9 @@ class CreateDemoContent
         return self::$IblockId;
     }
 
+    /**
+     * Создание элементов информационного блока
+     */
     protected function createIblockElement(): void
     {
         $elements = [
@@ -311,6 +368,12 @@ class CreateDemoContent
         }
     }
 
+    /**
+     * Определние идентификатора свойства инфоблока на основании его кода
+     *
+     * @param  array  $propCode
+     * @return int
+     */
     protected function changePropCodeToId($propCode = []): int
     {
         $id = 0;
@@ -325,6 +388,11 @@ class CreateDemoContent
         return $id;
     }
 
+    /**
+     * Получние списка сайтов
+     *
+     * @return array
+     */
     protected function getSite(): array
     {
         $arSiteId = [];

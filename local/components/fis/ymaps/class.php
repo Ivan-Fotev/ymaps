@@ -23,11 +23,16 @@ use Bitrix\Main\Loader,
     Bitrix\Iblock\IblockTable,
     Bitrix\Main\Data\Cache;
 
-
+/**
+ * Class FISYmapsComponent
+ */
 class FISYmapsComponent extends CBitrixComponent
 {
     protected $officeList = [];
 
+    /*
+     * Обработка входных параметров компонента
+     */
     public function onPrepareComponentParams($arParams): array
     {
         $arParams['API_KEY'] = trim($arParams['API_KEY']);
@@ -43,6 +48,9 @@ class FISYmapsComponent extends CBitrixComponent
         return parent::onPrepareComponentParams($arParams);
     }
 
+    /**
+     * Проверка и подключение зависимостей
+     */
     private function checkModules() : void
     {
         try
@@ -58,7 +66,9 @@ class FISYmapsComponent extends CBitrixComponent
         }
     }
 
-
+    /**
+     * Получние данных из информационного блока
+     */
     protected function prepareData(): void
     {
         $offices        = [];
@@ -118,6 +128,9 @@ class FISYmapsComponent extends CBitrixComponent
         $this->officeList = $offices;
     }
 
+    /*
+     * Преобразование данных в нужную структуру для гео объекта
+     */
     protected function  formatData(): void
     {
         $arPropsTemplate = [
@@ -153,7 +166,12 @@ class FISYmapsComponent extends CBitrixComponent
         $this->arResult['DATA'] = $arPropsTemplate;
     }
 
-
+    /**
+     * Формирование html структуры для popup на карте
+     *
+     * @param  array  $item
+     * @return string
+     */
     protected function createBalloonContentBody($item = []): string
     {
         $arFields = ['CITY','PHONE','EMAIL'];
@@ -170,6 +188,14 @@ class FISYmapsComponent extends CBitrixComponent
         return $html;
     }
 
+    /**
+     * Проверка сущестования инфорамационного блока
+     *
+     * @return bool
+     * @throws SystemException
+     * @throws \Bitrix\Main\ArgumentException
+     * @throws \Bitrix\Main\ObjectPropertyException
+     */
     protected function issetIblock(): bool
     {
         $result = false;
@@ -193,6 +219,7 @@ class FISYmapsComponent extends CBitrixComponent
             $this->prepareData();
             $this->formatData();
 
+            //\CUtil::InitJSCore();
             $this->includeComponentTemplate();
         }else{
             showError(Loc::getMessage('FIS_YMAPS_CLASS_NOT_ISSET_IBLOCK'));
