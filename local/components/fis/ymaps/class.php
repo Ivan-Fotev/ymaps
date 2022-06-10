@@ -219,7 +219,7 @@ class FISYmapsComponent extends CBitrixComponent
             $this->prepareData();
             $this->formatData();
 
-            //\CUtil::InitJSCore();
+            \CUtil::InitJSCore();
             $this->includeComponentTemplate();
         }else{
             showError(Loc::getMessage('FIS_YMAPS_CLASS_NOT_ISSET_IBLOCK'));
